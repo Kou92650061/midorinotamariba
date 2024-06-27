@@ -1,24 +1,42 @@
-# README
+実装機能リストのURL
+https://docs.google.com/spreadsheets/d/1am1lpAb89kLG3Wo_SBIQbjBViCrfCHv5pdsBVS77TdA/edit?usp=sharing
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#　緑のたまり場
+## サイト概要
+### サイトテーマ
 
-Things you may want to cover:
+自然、田舎の風景の写真を投稿したり、共有したりできるコミュニティサイト
+### テーマを選んだ理由
 
-* Ruby version
+もともと熊本に住んでいて転職を機に埼玉に引っ越してきました。
+自分は自然や田舎の風景を見て心が落ちつかせたり癒されたりしていたので、埼玉で過ごすうちに熊本で生活していた頃と町の風景に緑や自然が少なく、少し寂しい気持ちになりました。
+仕事で遠出した時に自然豊かな風景を見かけたら、写真を撮って思い出として残すと同時に同じことを考えてる人いるのではないかと考えました。
+自分や他の人が見た自然、田舎の風景の写真を投稿して互いに知らない風景を共有できるサービスがあれば便利だと考えました。
+また投稿された風景の地図がわかれば、直接見に行くこともできるかもしれないと思いこのテーマに決めました。
 
-* System dependencies
+### ターゲットユーザ
 
-* Configuration
+・自然、田舎の風景が好きな人
+・自然、田舎の雰囲気を感じて癒されたい人
+・大都市暮らしで自然豊かな風景をあまり見ることがない人
 
-* Database creation
+### 主な利用シーン
 
-* Database initialization
+・出かけ先で撮った自然、田舎の写真を投稿する時
+・自然、田舎の場所、写真を検索する時
+・観光スポットとして場所を調べる時
 
-* How to run the test suite
+## 設計書
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+後ほど作成予定
+​
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
+​
+## 使用素材
+著作権を考慮し、架空のデータを扱う予定です。
+なお今後、実在するデータを利用する際には、事前に著作権保持者と契約を結んだ上で利用します。
