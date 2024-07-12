@@ -1,0 +1,22 @@
+<h1>ユーザー詳細</h1>
+<div>
+  <h3><%= @user.name %></h3>
+  <%= image_tag @user.get_profile_image(100,100) %>
+  <% if @user == current_user %>
+    <p><%= link_to "プロフィール編集", user_path(current_user.id) %></p>
+  <% end %>
+</div>
+
+<h1>ユーザー投稿一覧</h1>
+<% @post_images.each do |post_image| %>
+  <div>
+    <%= link_to post_image_path(post_image.id) do %>
+      <%= image_tag post_image.get_image %>
+    <% end %>
+    <p>投稿ユーザー画像: <%= image_tag post_image.user.get_profile_image(100, 100) %></p>
+    <p>タイトル: <%= post_image.title %></p>
+    <p>説明: <%= post_image.body%></p>
+    <p>ユーザーネーム: <%= post_image.user.name %></p>
+    <p><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
+  </div>
+<% end %>
