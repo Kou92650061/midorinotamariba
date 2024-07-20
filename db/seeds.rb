@@ -5,11 +5,20 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Tag.create([
-    { name: 'スターバックス' },
-    { name: 'ドトール' },
-    { name: 'エクセルシオール'},
-    { name: 'タリーズ'},
-    { name: 'サンマルク'},
-    { name: 'コメダ'}
-    ])
+
+taro = User.find_or_create_by!(email: "taro@example.com") do |user|
+  user.password = "password"
+  user.name = "taro"
+end
+
+post_image = taro.post_images.find_or_create_by!(title: "aaa") do |post_image|
+  post_image.body = "iii"
+end
+
+yama = Tag.find_or_create_by!(name: "山")
+kawa = Tag.find_or_create_by!(name: "川")
+umi = Tag.find_or_create_by!(name: "海")
+inaka = Tag.find_or_create_by!(name: "田舎")
+
+post_image.post_tags.find_or_create_by!(tag_id: yama.id)
+post_image.post_tags.find_or_create_by!(tag_id: inaka.id)
