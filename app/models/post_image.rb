@@ -6,6 +6,10 @@ class PostImage < ApplicationRecord
   has_many :tags, through: :post_tags
   has_many :nices, dependent: :destroy
   
+  validates :title, presence: true
+  validates :body, presence: true
+  validates :image, presence: true
+
   def get_image
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -13,7 +17,7 @@ class PostImage < ApplicationRecord
     end
     image
   end
-  
+
   def niced_by?(user)
     nices.exists?(user_id: user.id)
   end

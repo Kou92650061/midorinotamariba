@@ -1,20 +1,43 @@
 <h1>投稿一覧</h1>
+
+<%= form_tag post_images_path, method: :get, class: 'boards_searchForm' do %>
+  <%= select_tag :tag_id, options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+    {
+      prompt: 'タグで絞り込み検索',
+      onchange: 'submit(this.form);'
+    }
+  %>
+<% end %>
+<div class="card-list-container py-5">
 <% @post_images.each do |post_image| %>
-  <div>
+  <div class="card w-50 mx-auto mt-4 shadow-lg">
     <%= link_to post_image_path(post_image.id) do %>
       <%= image_tag post_image.get_image %>
     <% end %>
-    <p>投稿ユーザー画像：<%= image_tag post_image.user.get_profile_image(100,100) %></p>
-    <p>タイトル: <%= post_image.title %></p>
-    <p>説明: <%= post_image.body %></p>
-    
-    <% post_image.tags.each do |tag| %>
-      <%= tag.name %>
-    <% end %>
-    
-    <p>ユーザーネーム: <%= post_image.user.name %></p>
-    <%= link_to "投稿詳細", post_image_path(post_image.id) %>
-    <p><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-2">
+          <%= image_tag post_image.user.get_profile_image(100,100) %>
+        </div>
+        <div class="col-10">
+          <p class="card-title">
+            タイトル: <%= post_image.title %>
+          </p>
+          <p class="card-body">説明: <%= post_image.body %></p>
+          <p>
+            <% post_image.tags.each do |tag| %>
+              <%= tag.name %>
+            <% end %>
+          </p>
+          ユーザーネーム: <%= post_image.user.name %> | <%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %>
+        </div>
+      </div>
+    </div>
   </div>
+
 <% end %>
+</div>
+
+  
+
 
