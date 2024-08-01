@@ -1,0 +1,35 @@
+<h1>投稿一覧（いいねが多い順）</h1>
+<div class="container mt-5">
+  <% @post_image_nice_ranks.each.with_index(1) do|post_image, i| %>
+    <%= i %>.
+    <%= link_to post_image_path(post_image.id) do %>
+      <%= image_tag post_image.get_image, width: 220, height: 160,
+            class: "img-resize, rounded mx-auto d-block",
+            style: "object-fit: contain;" %>
+    <% end %>
+    <div class="table mt-3">
+        <div class="row">
+          <div class="col-2">
+            <%= image_tag post_image.user.get_profile_image(100,100) %>
+          </div>
+          <div class="col-10">
+            <p>
+              タイトル: <%= post_image.title %>
+            </p>
+            <p>説明: <%= post_image.body %></p>
+            <p>
+              <% post_image.tags.each do |tag| %>
+                <%= tag.name %>
+              <% end %>
+            </p>
+            ユーザーネーム: <%= post_image.user.name %> 
+            | <%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %> 
+            | <%= link_to post_image_nice_path(post_image) do %>
+                ♡<%= post_image.nices.count %> いいね
+              <% end %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>
+

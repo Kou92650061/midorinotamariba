@@ -1,0 +1,28 @@
+<h1>ユーザー一覧</h1>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>ユーザーネーム</th>
+      <th></th>
+    </tr>
+  </thead>
+  <% @users.each do |user| %>
+    <tbody>
+      <tr>
+        <th>
+          <%= link_to user_path(user.id) do %>
+            <%= image_tag user.get_profile_image(100,100) %>
+          <% end %>
+        </th>
+        <th>
+          <%= link_to user_path(user.id) do %>
+            <%= user.name %>
+          <% end %>
+        </th>
+        <th></th>
+      </tr>
+    </tbody>
+  <% end %>
+</table>
+  

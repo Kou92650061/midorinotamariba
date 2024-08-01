@@ -7,8 +7,10 @@ class PostImagesController < ApplicationController
     @post_image = PostImage.new(post_image_params)
     @post_image.user_id = current_user.id
     if @post_image.save
-      redirect_to post_images_path
+      flash[:notice] = "投稿に成功しました。"
+      redirect_to post_image_path(@post_image.id)
     else
+      flash.now[:notice] = "投稿に失敗しました。"
       render :new
     end
   end

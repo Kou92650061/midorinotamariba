@@ -8,34 +8,38 @@
     }
   %>
 <% end %>
-<div class="card-list-container py-5">
-<% @post_images.each do |post_image| %>
-  <div class="card w-50 mx-auto mt-4 shadow-lg">
+<%= link_to "いいねが多い順", ranks_path %>
+<div class="container mt-5">
+  <% @post_images.each do |post_image| %>
     <%= link_to post_image_path(post_image.id) do %>
-      <%= image_tag post_image.get_image %>
+      <%= image_tag post_image.get_image, width: 220, height: 160,
+          class: "img-resize, rounded mx-auto d-block",
+          style: "object-fit: contain;" %>
     <% end %>
-    <div class="card-body">
+    <div class="table mt-3">
       <div class="row">
         <div class="col-2">
           <%= image_tag post_image.user.get_profile_image(100,100) %>
         </div>
         <div class="col-10">
-          <p class="card-title">
+          <p>
             タイトル: <%= post_image.title %>
           </p>
-          <p class="card-body">説明: <%= post_image.body %></p>
+          <p>説明: <%= post_image.body %></p>
           <p>
             <% post_image.tags.each do |tag| %>
               <%= tag.name %>
             <% end %>
           </p>
-          ユーザーネーム: <%= post_image.user.name %> | <%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %>
+          ユーザーネーム: <%= post_image.user.name %> 
+          | <%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %> 
+          | <%= link_to post_image_nice_path(post_image) do %>
+              ♡<%= post_image.nices.count %> いいね
+            <% end %>
         </div>
       </div>
     </div>
-  </div>
-
-<% end %>
+  <% end %>
 </div>
 
   
