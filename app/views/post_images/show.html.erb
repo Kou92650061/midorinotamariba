@@ -3,50 +3,68 @@
 </div>
 
 <h1>投稿詳細</h1>
-<div>
-  <%= image_tag @post_image.get_image, style: "width: 100%;" %>
-  <p>タイトル: <%= @post_image.title %></p>
-  <p>説明: <%= @post_image.body %></p>
-  <p>
-    投稿ユーザー: <%= image_tag @post_image.user.get_profile_image(100,100) %>
-    <%= @post_image.user.name %>
-  </p>
-　タグ：
-  <% @post_image.tags.each do |tag| %>
-    <%= tag.name %>
-  <% end %>
-
-  <p>投稿日: <%= @post_image.created_at.strftime('%Y/%m/%d') %></p>
+<div class="container mx-auto mt-5 border">
+  <%= image_tag @post_image.get_image, size: "600x600", class: "object-fit-contain" %>
+  <div class="body mx-auto">
+    <p>タイトル: <%= @post_image.title %></p>
+    <p>
+      タグ：<% @post_image.tags.each do |tag| %>
+              <%= tag.name %>
+            <% end %>
+    </p>
+    <p>説明: <%= @post_image.body %></p>
+    <div class="row">
+      <div class="col-md-8 ">
+        投稿ユーザー:
+        <p>
+          <%= link_to user_path(@post_image.user) do %>
+            <%= image_tag @post_image.user.get_profile_image(100,100) %>
+          <% end %>  
+          <%= @post_image.user.name %>
+        </p>
+      </div>
+      <div class="col-md-4 ">
+        投稿日: <%= @post_image.created_at.strftime('%Y/%m/%d') %>
+      </div>
+    </div>
+  </div>
+  <div class="nice">
+    <% if @post_image.niced_by?(current_user) %>
+      <p>
+        <%= link_to post_image_nice_path(@post_image), method: :delete do %>
+          ♥<%= @post_image.nices.count %> いいね
+        <% end %>
+      </p>
+      <% else %>
+      <p>
+        <%= link_to post_image_nice_path(@post_image), method: :post do %>
+          ♡<%= @post_image.nices.count %> いいね
+        <% end %>
+      </p>
+    <% end %>
+  </div>
+  
   <% if @post_image.user == current_user %>
     <%= link_to "削除", post_image_path(@post_image), method: :delete %>
   <% end %>
-  <% if @post_image.niced_by?(current_user) %>
-    <p>
-      <%= link_to post_image_nice_path(@post_image), method: :delete do %>
-        ♥<%= @post_image.nices.count %> いいね
+  
+  <div class="comment">
+    <p>コメント件数：<%= @post_image.post_comments.count %></p>
+    <% @post_image.post_comments.each do |post_comment| %>
+      <p><%= image_tag post_comment.user.get_profile_image(100,100) %></p>
+      <%= post_comment.user.name %> | 
+      <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+      <p><%= post_comment.comment %></p>
+      
+    <% end %>
+    <div>
+      <%= form_with model:[@post_image, @post_comment] do |f| %>
+        <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに" %>
+        <%= f.submit "送信する" %>
       <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to post_image_nice_path(@post_image), method: :post do %>
-        ♡<%= @post_image.nices.count %> いいね
-      <% end %>
-    </p>
-  <% end %>
+    </div>
+  </div>
 </div>
 
-<div>
-  <p>コメント件数：<%= @post_image.post_comments.count %></p>
-  <% @post_image.post_comments.each do |post_comment| %>
-    <p><%= image_tag post_comment.user.get_profile_image(100,100) %></p>
-    <%= post_comment.user.name %>
-    <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
-  <% end %>
-</div>
 
-<div>
-  <%= form_with model:[@post_image, @post_comment] do |f| %>
-    <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" %>
-  <% end %>
-</div>
+

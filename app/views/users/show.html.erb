@@ -6,7 +6,7 @@
 <div>
   <%= image_tag @user.get_profile_image(100,100) %>
   <%= @user.name %>
-  <% if @user == current_user %>
+  <% if @user == current_user %> |
     <%= link_to "プロフィール編集", edit_user_path(current_user.id) %>
   <% end %>
 </div>
@@ -20,15 +20,14 @@
     }
   %>
 <% end %>
-<%= link_to "いいねが多い順", ranks_path %>
-<div class="container mt-5">
-  <% @post_images.each do |post_image| %>
-    <%= link_to post_image_path(post_image) do %>
-      <%= image_tag post_image.get_image, size: "220x160", class: "object-fit-contain" %>
-    <% end %>
-    <div class="table mt-3">
-      <div class="row">
 
+<div class="container w-50 mx-auto mt-4">
+  <% @post_images.each do |post_image| %>
+    <div class="border mt-3">
+      <%= link_to post_image_path(post_image) do %>
+        <%= image_tag post_image.get_image, size: "400x400", class: "object-fit-contain" %>
+      <% end %>
+      <div class="row">
         <div class="col-12">
           <p>
             タイトル: <%= post_image.title %>
@@ -39,8 +38,8 @@
               <%= tag.name %>
             <% end %>
           </p>
-          | <%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %>
-          | <%= link_to post_image_nice_path(post_image) do %>
+          <%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %> |
+          <%= link_to post_image_nice_path(post_image) do %>
               ♡<%= post_image.nices.count %> いいね
             <% end %>
         </div>
