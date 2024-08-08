@@ -1,19 +1,28 @@
-<h1>投稿一覧</h1>
+<% if @model == 'user' %>
+  <h3>Users search for "<%= @content %>"</h3>
+  <%#= render 'users/index', users: @records %>
+  <% @records.each do |user| %>
+    <tbody>
+      <tr>
+        <th class="user-image">
+          <%= link_to user_path(user.id) do %>
+            <%= image_tag user.get_profile_image(100,100) %>
+          <% end %>
+        </th>
+        <th class="user-name">
+          <%= link_to user_path(user.id) do %>
+            <%= user.name %>
+          <% end %>
+        </th>
+        <th></th>
+      </tr>
+    </tbody>
+  <% end %>
+<% elsif @model == 'post_image' %>
+  <h3>PostImages search for "<%= @content %>"</h3>
+  <%#= render 'post_images/index', post_images: @records %>
+  <% @records.each do |post_image| %>
 
-<%= form_tag post_images_path, method: :get, class: 'boards_searchForm' do %>
-  <%= select_tag :tag_id, options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
-    {
-      prompt: 'タグで絞り込み検索',
-      onchange: 'submit(this.form);'
-    }
-  %>
-<% end %>
-
-<%= link_to "いいねが多い順", ranks_path %>
-
-<div class="container w-50 mx-auto mt-5">
-  <% @post_images.each do |post_image| %>
-    
     <div class="border mt-3">
       <%= link_to post_image_path(post_image.id) do %>
         <%= image_tag post_image.get_image, size: "400x400", class: "object-fit-contain"; %>
@@ -34,8 +43,8 @@
               <%= tag.name %>
             <% end %>
           </p>
-          ユーザーネーム: <%= post_image.user.name %> 
-          | <%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %> 
+          ユーザーネーム: <%= post_image.user.name %>
+          | <%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %>
           | <% if post_image.niced_by?(current_user) %>
             <p>
               <%= link_to post_image_nice_path(post_image), method: :delete do %>
@@ -53,11 +62,4 @@
       </div>
     </div>
   <% end %>
-  <div class="text-center">
-    <%= paginate @post_images %>
-  </div>
-</div>
-
-  
-
-
+<% end %>

@@ -1,13 +1,14 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
-    @post_images = @user.post_images
+    @post_images = @user.post_images.page(params[:page])
     @post_images = @post_images.includes(:post_tags).where('post_tags.tag_id': params[:tag_id]) if params[:tag_id].present?
     @tags = Tag.all
   end
 
   def index
-    @users = User.all
+    @users = User.page(params[:page])
+    @post_images = PostImage.all.page(params[:page])
   end
 
   def edit

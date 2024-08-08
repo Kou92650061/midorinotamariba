@@ -9,6 +9,18 @@ class PostImage < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true
   validates :image, presence: true
+  
+  def self.search_for(content, method)
+    if method == 'perfect'
+      PostImage.where(title: content)
+    elsif method == 'forward'
+      PostImage.where('name LIKE ?', content + '%')
+    elsif method == 'backward'
+      PostImage.where('name LIKE ?', '%' + content)
+    else
+      PostImage.where('name LIKE ?', '%' + content + '%')
+    end
+  end
 
   def get_image
     unless image.attached?
