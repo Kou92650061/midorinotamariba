@@ -5,10 +5,12 @@
 <div class="col-md-6 mx-auto mt-5">
   <h1>Top</h1>
   <div class="row">
-    <p class="ml-3">
-      <%= link_to 'ゲストログイン（閲覧用）', homes_guest_sign_in_path, method: :post, class: 'btn btn-primary' %>
-    </p>
-    <p class="ml-3"><a class="btn btn-success" href="/users/sign_up">新規登録</a></p>
-    <p class="ml-3"><a class="btn btn-info" href="/users/sign_in">ログイン</a></p>
+    <% unless user_signed_in? %>
+      <p class="ml-3">
+        <%= link_to 'ゲストログイン（閲覧用）', homes_guest_sign_in_path, method: :post, class: 'btn btn-primary' %>
+      </p>
+      <p class="ml-3"><a class="btn btn-success" href="/users/sign_up">新規登録</a></p>
+      <p class="ml-3"><a class="btn btn-info" href="/users/sign_in">ログイン</a></p>
+    <% end %>
   </div>
 </div>
