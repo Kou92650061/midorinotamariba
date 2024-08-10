@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   post '/homes/guest_sign_in', to: 'homes#guest_sign_in'
   
-  devise_for :admin, skip: [:registrtions, :password], controllers: {
+  devise_for :admin, skip: [:registrations, :password], controllers: {
     sessions: 'admin/sessions'
   }
 
