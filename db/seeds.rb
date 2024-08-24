@@ -11,6 +11,10 @@ taro = User.find_or_create_by!(email: "taro@example.com") do |user|
   user.name = "taro"
 end
 
+admin = Admin.find_or_create_by!(email: "admin@example.com") do |admin|
+  admin.password = "password"
+end
+
 post_image = taro.post_images.find_or_create_by!(title: "aaa") do |post_image|
   post_image.body = "iii"
   post_image.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/no_image.jpg"), filename:"no_image.jpg")
