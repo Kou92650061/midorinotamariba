@@ -13,6 +13,7 @@ end
 
 post_image = taro.post_images.find_or_create_by!(title: "aaa") do |post_image|
   post_image.body = "iii"
+  post_image.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/no_image.jpg"), filename:"no_image.jpg")
 end
 
 yama = Tag.find_or_create_by!(name: "山")
