@@ -4,8 +4,7 @@ class PostImagesController < ApplicationController
   end
 
   def create
-    @post_image = PostImage.new(post_image_params)
-    @post_image.user_id = current_user.id
+    @post_image = current_user.post_images.new(post_image_params)
     if @post_image.save
       flash[:notice] = "投稿に成功しました。"
       redirect_to post_image_path(@post_image.id)
@@ -18,7 +17,7 @@ class PostImagesController < ApplicationController
   def index
     @post_images = PostImage.page(params[:page])
     @post_images = @post_images.includes(:post_tags).where('post_tags.tag_id': params[:tag_id]) if params[:tag_id].present?
-    
+
     #@post_images = params[:tag_id].present? ? Tag.find(params[:tag_id]).post_images : PostImage.all
   end
 
